@@ -1,0 +1,17 @@
+EXE=main.exe
+SRCS=main.cpp Timer.cpp
+OBJS=$(subst .cpp,.o,$(SRCS))
+CFLAGS=-std=c++17
+
+run: compile
+	@echo ----------------------------------------------
+	./out/$(EXE) $(ARGS)
+
+compile: out/$(OBJS)
+	g++ $< -o out/$(EXE)
+
+%.o: %.cpp
+	g++ $(CFLAGS) -c $< -o $@
+
+clean:
+	rm out/*.exe

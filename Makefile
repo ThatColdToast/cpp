@@ -1,17 +1,33 @@
-run: compile
-	@echo ----------------------------------------------
-	./out/$(EXE) $(ARGS)
+TARGET = testfile
+DIRS = src src/profiling
+LDLIBS =
 
-EXE=terrain.exe
-SRCS=main.cpp
-OBJS=$(subst .cpp,.o,$(SRCS))
-CFLAGS=-std=c++17
+CXX = g++
 
-compile: out/$(OBJS)
-	g++ $< -o out/$(EXE)
+CXXFLAGS= -g -Wall
 
-out/%.o: src/%.cpp
-	g++ $(CFLAGS) -c $< -o $@
+# this ensures that if there is a file called default, all or clean, it will still be compiled
+.PHONY: default all clean run
+
+default: $(TARGET)
+	$(TARGET)
+all: default
+
+# substitute '.cpp' with '.o' in any *.cpp 
+OBJECTS = $(patsubst %.cpp, %.o, $(wildcard *.cpp $(addsuffix /*.cpp, $(DIRS))))
+HEADERS = $(wildcard *.h)
+
+# build the executable
+%.o: %.cpp $(HEADERS)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+    
+# if make is interupted, dont delete any object file
+.PRECIOUS: $(TARGET) $(OBJECTS)
+
+# build the objects
+$(TARGET): $(OBJECTS)
+	$(CXX) $(OBJECTS) -Wall $(LDLIBS) -o $@ 
 
 clean:
-	rm out/*.exe
+	-rm -f *.o $(addsuffix /*.o, $(DIRS))
+	-rm -f $(TARGET)
