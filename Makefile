@@ -10,7 +10,7 @@ CXXFLAGS= -g -Wall
 .PHONY: default all clean run
 
 default: $(TARGET)
-	$(TARGET)
+	./$(TARGET)
 all: default
 
 # substitute '.cpp' with '.o' in any *.cpp 
