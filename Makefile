@@ -17,10 +17,10 @@ EXEFLAGS =
 CXX = g++
 
 # Debug
-CXXFLAGS= -Wall -std=c++17 -iquote OpenGL/src -isystem Dependencies/GLEW/include -isystem Dependencies/GLFW/include -isystem OpenGL/src/vendor
+CXXFLAGS= -Wall -std=c++17 -iquote src -isystem Dependencies/GLEW/include -isystem Dependencies/GLFW/include -isystem src/vendor
 
 # Release
-# CXXFLAGS= -Wall -std=c++17 -iquote OpenGL/src -isystem Dependencies/GLEW/include -isystem Dependencies/GLFW/include -isystem OpenGL/src/vendor -I OpenGL/src/vendor/imgui -I OpenGL/src/vendor/stb_image
+# CXXFLAGS= -Wall -std=c++17 -iquote src -isystem Dependencies/GLEW/include -isystem Dependencies/GLFW/include -isystem OpenGL/src/vendor -I OpenGL/src/vendor/imgui -I OpenGL/src/vendor/stb_image
 
 .PHONY: compile clean run
 
